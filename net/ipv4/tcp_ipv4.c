@@ -58,6 +58,7 @@
 #include <linux/times.h>
 #include <linux/slab.h>
 #include <linux/sched.h>
+#include <pragmapack>
 
 #include <net/net_namespace.h>
 #include <net/icmp.h>
