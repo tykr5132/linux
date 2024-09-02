@@ -1,0 +1,30 @@
+#include"header.h"
+int main()
+{
+	int fd;
+	char wrbuf[100];
+	fd=open("IIES",O_RDWR);
+	while(1)
+	{
+		gets(wrbuf);
+		write(fd,wrbuf,strlen(wrbuf));
+		printf("the length is %d\n",strlen(wrbuf));
+	}
+}
+
+reading operation
+#include"header.h"
+int main()
+{
+	int fd;
+	char rdbuf[100];
+	mkfifo("IIES",0760);
+	printf("the process id is %d\n",getpid());
+	fd=open("IIES",O_RDWR);
+	while(1)
+	{
+		read(fd,rdbuf,100);
+		printf(" the message is %s \n",rdbuf);
+	}
+}
+
