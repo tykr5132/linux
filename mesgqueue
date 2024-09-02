@@ -1,0 +1,48 @@
+#include"header.h"
+struct msgbuf{
+	long mtype;
+	char mtext[20];
+};
+int main(int argc,char *argv[])
+{
+	struct msgbuf buf;
+	int id;
+	id=msgget(1,IPC_CREAT | 0600);
+	printf("the peorcess id is %d \n",getpid());
+	bzero(buf.mtext,20);
+	while(1)
+	{
+		printf("enter the message\n");
+		gets(buf.mtext);
+		buf.mtype=atoi(argv[1]);
+		msgsnd(id,&buf,strlen(buf.mtext),0);
+		printf("the message length %d\n",strlen(buf.mtext));
+	}
+}
+
+#include"header.h"
+struct mbuf
+{
+	long mytype;
+	char mtext[20];
+};
+int main(int argc,char *argv[])
+{
+	struct mbuf b;
+	int id;
+	id=msgget(1,IPC_PRIVATE | 0600);
+	bzero(b.mtext,20);
+	b.mytype=atoi(argv[1]);
+	if(id==-1)
+	{
+		perror("mesgegt");
+		return;
+	}
+	while(1)
+	{
+		printf("the process id %d \n",getpid());
+		msgrcv(id,&b,20,b.mytype,0);
+		printf("recived %s\n",b.mtext);
+	}
+}
+
