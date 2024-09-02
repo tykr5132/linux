@@ -1,0 +1,31 @@
+#include"header.h"
+int main()
+{
+	int g=0,f=0;
+	int a[2],ret;
+	printf("the prcess id is %d\n",getpid());
+	getchar();
+	ret=fork();
+	if(ret==0)
+	{
+		while(1)
+		{
+
+			read(a[0],&g,4);
+			printf("in child %d \n",g);
+			sleep(1);
+		}
+
+	}
+	else
+	{
+		while(1)
+		{
+			g++;
+			write(a[1],&g,4);
+			printf("in parent %d \n",g);
+			sleep(1);
+		}
+	}
+
+}
